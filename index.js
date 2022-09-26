@@ -6,9 +6,13 @@ import cors from 'cors'
 import dotenv from 'dotenv';
 dotenv.config()
 
+import postRoute from './routes/posts.js'
+
 // console.log('process env', process.env.USER_NAME, process.env.AUTH)
 const app = express();
 app.use(express.json())
+
+app.use('/posts', postRoute)
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
