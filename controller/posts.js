@@ -61,9 +61,9 @@ export const likePost = async (req, res) => {
 
         const post = await Post.findById(id)
 
-        const updatedPost = await Post.findByIdAndUpdate(id, { likeCount: post.likeCOunt + 1 }, { new: true })
+        const updatedPost = await Post.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true })
 
-        res.json(updatePost)
+        res.json(updatedPost)
     } catch (error) {
         res.status(409).json({ message: error })
     }
