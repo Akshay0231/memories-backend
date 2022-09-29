@@ -26,15 +26,15 @@ export const createPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
     try {
-        const { id: _id } = req.params
+        const { id } = req.params
         const post = req.body
-        if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send(`No post found for id ${id}`)
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post found for id ${id}`)
 
-        const updatedPost = await Post.findByIdAndUpdate(_id, { ...post, _id }, { new: true })
+        const updatedPost = await Post.findByIdAndUpdate(id, { ...post, id }, { new: true })
 
         res.json(updatedPost)
     } catch (error) {
-        res.status(409).json({ message: error.message })
+        res.status(409).json({ message: error })
     }
 }
 
@@ -50,5 +50,21 @@ export const deletePost = async (req, res) => {
         res.json({ message: 'Post deleted successfully' })
     } catch (error) {
 
+    }
+}
+
+export const likePost = async (req, res) => {
+    try {
+        const { id } = req.params
+
+        if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post found for id ${id}`)
+
+        const post = await Post.findById(id)
+
+        const updatedPost = await Post.findByIdAndUpdate(id, { likeCount: post.likeCOunt + 1 }, { new: true })
+
+        res.json(updatePost)
+    } catch (error) {
+        res.status(409).json({ message: error })
     }
 }
