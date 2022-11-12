@@ -45,7 +45,7 @@ export const deletePost = async (req, res) => {
 
         await Post.findByIdAndRemove(id)
 
-        console.log('deleted', id)
+        // console.log('deleted', id)
 
         res.json({ message: 'Post deleted successfully' })
     } catch (error) {
